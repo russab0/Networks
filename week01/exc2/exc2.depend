@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1548699122 source:/home/sabzirov/Git/Networks/week01/exc2/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
