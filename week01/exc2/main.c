@@ -71,41 +71,45 @@ main()
             scanf("%s", strin);
             write(p[1], strin, MAXN);
         }
-        close(p[1]);
+        //close(p[1]);
     }
     else if (pid == 0){ // child -- server
         close(p[1]);
         int m;
         read(p[0], &m, sizeof(m));
         for (int i = 0; i < m; i++){
+            read(p[0], strout, MAXN);
+
             if (strout[0] == 'p' &&
                     strout[1] == 'u' &&
                     strout[2] == 's' &&
                     strout[3] == 'h'){ // checking if it is "push()" command
                 read(p[0], strout, MAXN);
                 int j = 5, data = 0;
-                while (strout[j] != ')')
+                while (strout[j] != ')'){
                     data = data * 10 + (int) (strout[j] - '0'); // building int from string
+                    j += 1;
+                }
                 push(data);
             }
             else if (strout == "peek()")
-                printf("%d", peek());
+                printf("%d\n", peek());
             else if (strout == "pop()")
                 pop();
             else if (strout == "empty()")
-                printf("%d", empty());
+                printf("%d\n", empty());
             else if (strout == "display()")
                 display();
             else if (strout == "create()")
                 create();
             else if (strout == "stack_size()")
-                printf("%d", stack_size());
+                printf("%d\n", stack_size());
             else
                 printf("wrong command!\n");
 
-            read(p[0], strout, MAXN);
+
         }
-        close(p[0]);
+        //close(p[0]);
     }
     else{ // error
         printf("fork() executed with error\n");
